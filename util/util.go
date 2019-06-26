@@ -9,7 +9,41 @@ import (
 	"strings"
 )
 
-var repo = "github.com/spock/buildUniverse"
+var repo = "stuff"
+
+type Tlib struct {
+	findFunc func(substr string, pwd string) bool
+	mockdir  string `default:"../test-fixtures"`
+	subdir   string
+}
+
+func NewTlib(t ...*Tlib) *Tlib {
+
+	if t == nil {
+		tlib := &Tlib{findFunc: FindFile, mockdir: "../test-fixtures", subdir: "default"}
+		return tlib
+
+	}
+
+	if t[0].subdir == "" {
+		t[0].subdir = "default"
+	}
+
+	if t[0].findFunc == nil {
+		t[0].findFunc = FindFile
+	}
+
+	if t[0].mockdir == "" {
+		t[0].mockdir = "../test-fixtures"
+	}
+
+	if len(t) > 1 {
+		log.Fatalf("len(t) > 1")
+	}
+
+	return t[0]
+
+}
 
 func WriteString(file string, string string, perm os.FileMode) {
 	data := []byte(string)
@@ -65,14 +99,14 @@ func PWD() string {
 	return pwd
 }
 
-func ConstructDir() func() {
+func (t *Tlib) ConstructDir() func() {
 
 	old, err := os.Getwd()
 	if err != nil {
 		log.Fatalf("can't get current dir: %s\n", err)
 	}
 
-	mockdir := filepath.Join("../test-fixtures", repo)
+	mockdir := filepath.Join(t.mockdir, t.subdir)
 	err = Mkdir(mockdir)
 	if err != nil {
 		log.Fatalf("ConstructDir Failed: %s\n", err)
@@ -84,12 +118,15 @@ func ConstructDir() func() {
 		c, _ := os.Getwd()
 		fmt.Printf("current: %s\n", c)
 
-		err := os.Chdir("../test-fixtures")
+		err := os.Chdir(t.mockdir)
 		if err != nil {
 			log.Fatalf("can't cd")
 		}
 
-		Rmdir("github.com")
+		if t.subdir != "" {
+			Rmdir(t.subdir)
+		}
+
 		os.Chdir(old)
 
 	}

@@ -1,0 +1,74 @@
+
+resources:
+
+- name: tlib
+  type: git
+  source:
+    uri: https://github.com/mchirico/tlib.git
+    branch: master
+
+- name: tlib-docker-image
+  type: docker-image
+  source:
+    email: ((docker-hub-email))
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
+    repository: ((docker-hub-username))/cde
+
+###############################################################################
+
+jobs:
+
+- name: unit
+  plan:
+  - get: tlib
+    trigger: true
+  - task: unit
+    file: tlib/ci/unit-task.yml
+
+- name: build
+  plan:
+  - get: tlib
+    trigger: true
+    passed: [unit]
+  - task: build
+    file: tlib/ci/build-task.yml
+
+- name: inform
+  plan:
+  - get: tlib
+    trigger: true
+    passed: [build]
+  - task: inform
+    file: tlib/ci/inform-task.yml
+
+- name: docker
+  plan:
+  - get: tlib
+    trigger: true
+    passed: [inform]
+  - task: docker
+    file: tlib/ci/docker-task.yml
+
+- name: publish
+  plan:
+  - get: tlib
+    trigger: true
+    passed: [docker]
+  - put: tlib-docker-image
+    params:
+      build: tlib/ci/docker
+  - task: run
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: ((docker-hub-username))/tlib
+      run:
+        path: /bin/hello-world
+        args: []
+      params:
+        NAME: ((docker-hub-username))
+
+

@@ -10,6 +10,8 @@ matrix:
       os:
         - linux
       install:
+        - go get github.com/axw/gocov/gocov
+        - go install github.com/axw/gocov/gocov
         - go get -v -t ./...
       before_install:
         #- openssl aes-256-cbc -k "$super_secret_password" -in fixtures/data.enc -out fixtures/data -d
