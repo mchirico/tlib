@@ -5,6 +5,15 @@
 [![codecov](https://codecov.io/gh/mchirico/tlib/branch/master/graph/badge.svg)](https://codecov.io/gh/mchirico/tlib)
 # tlib
 
+
+## Testing Package
+
+Trying to incorporate the following.
+
+[Dave Cheney](https://www.youtube.com/watch?v=pN_lm6QqHcw)
+[Globals](https://peter.bourgon.org/blog/2017/06/09/theory-of-modern-go.html)
+[Testing Helpers](https://www.youtube.com/watch?v=yszygk1cpEc&feature=youtu.be&t=1609)
+
 ## Build with vendor
 ```
 export GO111MODULE=on
