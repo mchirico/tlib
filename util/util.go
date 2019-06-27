@@ -89,10 +89,35 @@ func FindFile(substr string, pwd string) bool {
 
 }
 
+func ReadFile(file string) string {
+	dat, err := ioutil.ReadFile(file)
+	if err != nil {
+		panic(err)
+	}
+	return string(dat)
+}
+
+func FileContents(file string) (map[string]string, bool) {
+
+	m := map[string]string{}
+	found := false
+
+	files := ListFiles(PWD())
+	for _, v := range files {
+		if strings.Contains(v, file) {
+			contents := ReadFile(v)
+			m[v] = contents
+			found = true
+		}
+	}
+
+	return m, found
+}
+
 func PWD() string {
 	pwd, err := os.Getwd()
 	if err != nil {
-		log.Fatalf("error: %v\n", err)
+		panic(err)
 	}
 	return pwd
 }

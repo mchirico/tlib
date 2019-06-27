@@ -30,4 +30,13 @@ func TestConstructDirSubdir(t *testing.T) {
 		t.FailNow()
 	}
 
+	if m, found := FileContents("testFile"); found {
+		for _, v := range m {
+			if v != "sample" {
+				t.Fatalf("Internal contents not found.")
+			}
+		}
+	} else {
+		t.FailNow()
+	}
 }
