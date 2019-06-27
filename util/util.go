@@ -9,8 +9,6 @@ import (
 	"strings"
 )
 
-var repo = "stuff"
-
 type Tlib struct {
 	findFunc func(substr string, pwd string) bool
 	mockdir  string `default:"../test-fixtures"`
