@@ -40,3 +40,28 @@ func TestConstructDirSubdir(t *testing.T) {
 		t.FailNow()
 	}
 }
+
+func TestAppend(t *testing.T) {
+
+	defer NewTlib().ConstructDir()()
+
+	pwd := PWD()
+
+	WriteString("testFile", "sample", 0644)
+	AppendString("testFile", " modified")
+
+	if !FindFile("default/testFile", pwd) {
+		t.FailNow()
+	}
+
+	if m, found := FileContents("testFile"); found {
+		for _, v := range m {
+			if v != "sample modified" {
+				t.Fatalf("Internal contents not found.")
+			}
+		}
+	} else {
+		t.FailNow()
+	}
+
+}

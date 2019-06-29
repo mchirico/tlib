@@ -51,6 +51,19 @@ func WriteString(file string, string string, perm os.FileMode) {
 	}
 }
 
+func AppendString(file string, string string) {
+	f, err := os.OpenFile(file, os.O_APPEND|os.O_WRONLY, 0600)
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	if _, err = f.WriteString(string); err != nil {
+		panic(err)
+	}
+}
+
 func Mkdir(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.MkdirAll(path, os.ModePerm)
