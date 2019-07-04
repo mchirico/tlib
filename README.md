@@ -5,7 +5,9 @@
 [![codecov](https://codecov.io/gh/mchirico/tlib/branch/master/graph/badge.svg)](https://codecov.io/gh/mchirico/tlib)
 
 [![Build Status](https://mchirico.visualstudio.com/tlib/_apis/build/status/mchirico.tlib?branchName=master)](https://mchirico.visualstudio.com/tlib/_build/latest?definitionId=6&branchName=master)
-[Project](https://mchirico.visualstudio.com/tlib)
+
+[![Board Status](https://mchirico.visualstudio.com/3942235e-81df-4d3e-b690-764f0e8da2b6/6e3787fa-7f1b-4ada-90e5-9b0822963cdd/_apis/work/boardbadge/8ce57aad-6547-4e5e-861d-17c9cf9237df)](https://mchirico.visualstudio.com/3942235e-81df-4d3e-b690-764f0e8da2b6/_boards/board/t/6e3787fa-7f1b-4ada-90e5-9b0822963cdd/Microsoft.RequirementCategory/)
+
 # tlib
 
 
