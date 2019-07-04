@@ -3,6 +3,9 @@
 
 [![Build Status](https://travis-ci.org/mchirico/tlib.svg?branch=master)](https://travis-ci.org/mchirico/tlib)
 [![codecov](https://codecov.io/gh/mchirico/tlib/branch/master/graph/badge.svg)](https://codecov.io/gh/mchirico/tlib)
+
+[![Build Status](https://mchirico.visualstudio.com/tlib/_apis/build/status/mchirico.tlib?branchName=master)](https://mchirico.visualstudio.com/tlib/_build/latest?definitionId=6&branchName=master)
+[Project](https://mchirico.visualstudio.com/tlib)
 # tlib
 
 
