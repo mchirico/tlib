@@ -145,9 +145,15 @@ func (t *Tlib) ConstructDir() func() {
 	mockdir := filepath.Join(t.mockdir, t.subdir)
 	err = Mkdir(mockdir)
 	if err != nil {
-		log.Fatalf("ConstructDir Failed: %s\n", err)
+		log.Printf("ConstructDir Failed: %s\n", err)
 	}
-	os.Chdir(mockdir)
+	err = os.Chdir(mockdir)
+	if err != nil {
+		log.Printf("os.Chdir(%s) failed\n", mockdir)
+		log.Printf("mockdir: %s\n", mockdir)
+		log.Fatalf("can't Chdir. Error: %s\n", err)
+
+	}
 
 	return func() {
 		os.Chdir(old)
