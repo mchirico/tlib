@@ -20,13 +20,13 @@ func TestConstructDirDefault(t *testing.T) {
 
 func TestConstructDirSubdir(t *testing.T) {
 
-	defer NewTlib(&Tlib{subdir: "subdir"}).ConstructDir()()
+	defer NewTlib(&Tlib{SubDir: "SubDir"}).ConstructDir()()
 
 	pwd := PWD()
 
 	WriteString("testFile", "sample", 0644)
 
-	if !FindFile("subdir/testFile", pwd) {
+	if !FindFile("SubDir/testFile", pwd) {
 		t.FailNow()
 	}
 
