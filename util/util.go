@@ -10,29 +10,29 @@ import (
 )
 
 type Tlib struct {
-	findFunc func(substr string, pwd string) bool
-	mockdir  string `default:"../test-fixtures"`
-	subdir   string
+	FindFunc func(substr string, pwd string) bool
+	MockDir  string `default:"../test-fixtures"`
+	SubDir   string
 }
 
 func NewTlib(t ...*Tlib) *Tlib {
 
 	if t == nil {
-		tlib := &Tlib{findFunc: FindFile, mockdir: "../test-fixtures", subdir: "default"}
+		tlib := &Tlib{FindFunc: FindFile, MockDir: "../test-fixtures", SubDir: "default"}
 		return tlib
 
 	}
 
-	if t[0].subdir == "" {
-		t[0].subdir = "default"
+	if t[0].SubDir == "" {
+		t[0].SubDir = "default"
 	}
 
-	if t[0].findFunc == nil {
-		t[0].findFunc = FindFile
+	if t[0].FindFunc == nil {
+		t[0].FindFunc = FindFile
 	}
 
-	if t[0].mockdir == "" {
-		t[0].mockdir = "../test-fixtures"
+	if t[0].MockDir == "" {
+		t[0].MockDir = "../test-fixtures"
 	}
 
 	if len(t) > 1 {
@@ -142,7 +142,7 @@ func (t *Tlib) ConstructDir() func() {
 		log.Fatalf("can't get current dir: %s\n", err)
 	}
 
-	mockdir := filepath.Join(t.mockdir, t.subdir)
+	mockdir := filepath.Join(t.MockDir, t.SubDir)
 	err = Mkdir(mockdir)
 	if err != nil {
 		log.Printf("ConstructDir Failed: %s\n", err)
@@ -150,7 +150,7 @@ func (t *Tlib) ConstructDir() func() {
 	err = os.Chdir(mockdir)
 	if err != nil {
 		log.Printf("os.Chdir(%s) failed\n", mockdir)
-		log.Printf("mockdir: %s\n", mockdir)
+		log.Printf("MockDir: %s\n", mockdir)
 		log.Fatalf("can't Chdir. Error: %s\n", err)
 
 	}
@@ -160,13 +160,13 @@ func (t *Tlib) ConstructDir() func() {
 		c, _ := os.Getwd()
 		fmt.Printf("current: %s\n", c)
 
-		err := os.Chdir(t.mockdir)
+		err := os.Chdir(t.MockDir)
 		if err != nil {
 			log.Fatalf("can't cd")
 		}
 
-		if t.subdir != "" {
-			Rmdir(t.subdir)
+		if t.SubDir != "" {
+			Rmdir(t.SubDir)
 		}
 
 		os.Chdir(old)
